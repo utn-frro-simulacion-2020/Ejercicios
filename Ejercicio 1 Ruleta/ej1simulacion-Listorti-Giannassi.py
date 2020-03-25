@@ -24,6 +24,10 @@ cantidad = ingresarCantidad()
 lista = generarLista(cantidad)
 # print(lista) #para debug
 
+print(lista)
+print("Promedio: " + str(promedio(lista)))
+print("Moda: " + str(lista.index(max(lista))))
+
 # frecuencias
 plt.stem(lista)
 plt.title('Frecuencias Ruleta ('+str(cantidad)+' iteraciones)')
