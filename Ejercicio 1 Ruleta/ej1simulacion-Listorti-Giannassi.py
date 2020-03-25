@@ -19,20 +19,28 @@ def promedio(lista):
     return sum(lista)/len(lista)
 
 
+def printData(lista):
+    print(lista)
+    print("Promedio: " + str(promedio(lista)))
+    print("Moda: " + str(lista.index(max(lista))))
+
+
+def plot(lista, cantidad):
+    plt.stem(lista)
+    plt.title('Frecuencias Ruleta ('+str(cantidad)+' iteraciones)')
+    plt.plot(lista, 'ro')
+    plt.axis([-1, len(lista), 1, max(lista)*1.1])
+    plt.ylabel('Tiros')
+    plt.xlabel('Números')
+    plt.show()
+
+
 # datos
 cantidad = ingresarCantidad()
 lista = generarLista(cantidad)
-# print(lista) #para debug
 
-print(lista)
-print("Promedio: " + str(promedio(lista)))
-print("Moda: " + str(lista.index(max(lista))))
+# printing
+printData(lista)
 
-# frecuencias
-plt.stem(lista)
-plt.title('Frecuencias Ruleta ('+str(cantidad)+' iteraciones)')
-plt.plot(lista, 'ro')
-plt.axis([-1, len(lista), 1, max(lista)*1.1])
-plt.ylabel('Tiros')
-plt.xlabel('Números')
-plt.show()
+# ploting
+plot(lista, cantidad)
