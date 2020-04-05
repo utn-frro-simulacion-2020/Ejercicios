@@ -7,13 +7,12 @@ def generarTiradaRuleta():
      
 def iteracionDeTiradas(cantidadDeTiradas):
     valores = []
-    for i in range(0,cantidadDeTiradas):
+    for _ in range(0,cantidadDeTiradas):
         valores.append(generarTiradaRuleta())
     return valores
 
 def frecuenciasRelativasCalculo(lista):
-    nRandom = random.randint(0,36)
-    return lista.count(nRandom) / len(lista)
+    return lista.count(random.randint(0,36)) / len(lista)
         
 def iteracionesTotales(cantMaxTiradas):
     frecuenciasRelativas = []
@@ -21,10 +20,11 @@ def iteracionesTotales(cantMaxTiradas):
     varianzas = []
     desvios = [] 
     for i in range(1,cantMaxTiradas):
-        promedios.append(np.mean(iteracionDeTiradas(i)))
-        varianzas.append(np.var(iteracionDeTiradas(i)))
-        desvios.append(np.std(iteracionDeTiradas(i)))
-        frecuenciasRelativas.append(frecuenciasRelativasCalculo(iteracionDeTiradas(i)))
+        iteracion = iteracionDeTiradas(i)
+        promedios.append(np.mean(iteracion))
+        varianzas.append(np.var(iteracion))
+        desvios.append(np.std(iteracion))
+        frecuenciasRelativas.append(frecuenciasRelativasCalculo(iteracion))
     return frecuenciasRelativas, promedios, varianzas, desvios
 
 # Main ------------------------------------------------------------------------------------------
