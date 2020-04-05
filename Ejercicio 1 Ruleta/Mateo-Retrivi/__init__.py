@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def generarTiradaRuleta():
     return random.randint(0,36)
      
-def iteraciondeTiradas(cantidadDeTiradas):
+def iteracionDeTiradas(cantidadDeTiradas):
     valores = []
     for i in range(0,cantidadDeTiradas):
         valores.append(generarTiradaRuleta())
@@ -13,9 +13,7 @@ def iteraciondeTiradas(cantidadDeTiradas):
 
 def frecuenciasRelativasCalculo(lista):
     nRandom = random.randint(0,36)
-    frecuenciaAbsoluta = lista.count(nRandom)
-    frecuenciaRelativa = frecuenciaAbsoluta / len(lista)
-    return frecuenciaRelativa
+    return lista.count(nRandom) / len(lista)
         
 def iteracionesTotales(cantMaxTiradas):
     frecuenciasRelativas = []
@@ -23,16 +21,16 @@ def iteracionesTotales(cantMaxTiradas):
     varianzas = []
     desvios = [] 
     for i in range(1,cantMaxTiradas):
-        promedios.append(np.mean(iteraciondeTiradas(i)))
-        varianzas.append(np.var(iteraciondeTiradas(i)))
-        desvios.append(np.std(iteraciondeTiradas(i)))
-        frecuenciasRelativas.append(frecuenciasRelativasCalculo(iteraciondeTiradas(i)))
+        promedios.append(np.mean(iteracionDeTiradas(i)))
+        varianzas.append(np.var(iteracionDeTiradas(i)))
+        desvios.append(np.std(iteracionDeTiradas(i)))
+        frecuenciasRelativas.append(frecuenciasRelativasCalculo(iteracionDeTiradas(i)))
     return frecuenciasRelativas, promedios, varianzas, desvios
 
 # Main ------------------------------------------------------------------------------------------
 
 ruleta=[]
-for i in range(0,36): ruleta.append(i)
+for i in range(0,37): ruleta.append(i)
 
 frecuenciaRelativaEsperada = frecuenciasRelativasCalculo(ruleta)
 promedioEsperado = np.mean(ruleta)
@@ -42,38 +40,45 @@ desvioEsperado = np.std(ruleta)
 z = int(input("Ingrese la cantidad máxima de tiradas a realizar: "))
 frecuenciasRelativasGrafico, promediosGrafico, varianzasGrafico, desviosGrafico = iteracionesTotales(z)
 
-# Plot n°1 - Análisis de Frecuencia Relativa
-plt.title("Frecuencia Relativa del Nro X")
-plt.xlabel("Nro de tiradas")
+# Plot n°1 - Análisis de frecuencia relativa
+plt.subplot(2, 2, 1)
+plt.title("Frecuencia Relativa")
+plt.xlabel("Número de tiradas")
 plt.grid(True)
-plt.plot([0]+frecuenciasRelativasGrafico)
-plt.axhline(frecuenciaRelativaEsperada, color='r', linestyle='dashed')
+plt.plot([0]+frecuenciasRelativasGrafico, 'tab:pink', label='Frecuencia relativa')
+plt.axhline(frecuenciaRelativaEsperada, color='black', linestyle='dashed', label='Frecuencia relativa esperada')
 plt.xlim(xmin=1)
-plt.show()
+plt.legend(loc='upper right')
 
 # Plot n°2 - Análisis de promedio
+plt.subplot(2, 2, 2)
 plt.title("Promedio")
-plt.xlabel("Nro de Tiradas")
+plt.xlabel("Número de tiradas")
 plt.grid(True)
-plt.plot([0]+promediosGrafico)
-plt.axhline(promedioEsperado, color='r', linestyle='dashed')
+plt.plot([0]+promediosGrafico, 'tab:purple', label='Promedio')
+plt.axhline(promedioEsperado, color='black', linestyle='dashed', label='Promedio esperado')
 plt.xlim(xmin=1)
-plt.show()
+plt.legend(loc='lower right')
 
-# Plot n°3 - Análisis de varianzas
+# Plot n°3 - Análisis de varianza
+plt.subplot(2, 2, 3)
 plt.title("Varianza")
-plt.xlabel("Nro de tiradas")
+plt.xlabel("Número de tiradas")
 plt.grid(True)
-plt.plot([0]+varianzasGrafico)
-plt.axhline(varianzaEsperado, color='r', linestyle='dashed')
+plt.plot([0]+varianzasGrafico, 'tab:blue', label="Varianza")
+plt.axhline(varianzaEsperado, color='black', linestyle='dashed', label='Varianza esperada')
 plt.xlim(xmin=1)
-plt.show()
+plt.legend(loc='lower right')
 
-# Plot n°4 - Análisis de Desvios
+
+# Plot n°4 - Análisis de desvío
+plt.subplot(2, 2, 4)
 plt.title("Desvío")
-plt.xlabel("Nro de tiradas")
+plt.xlabel("Número de tiradas")
 plt.grid(True)
-plt.plot([0]+desviosGrafico)
-plt.axhline(desvioEsperado, color='r', linestyle='dashed')
+plt.plot([0]+desviosGrafico, 'tab:orange', label='Desvío')
+plt.axhline(desvioEsperado, color='black', linestyle='dashed', label='Desvío esperado')
 plt.xlim(xmin=1)
+plt.legend(loc='lower right')
+
 plt.show()
