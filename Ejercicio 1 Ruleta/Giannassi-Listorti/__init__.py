@@ -20,10 +20,11 @@ def cargarResultadoGraphs(frecuencias, promedios, varianzas, desvios, final):
     # Configuración de subplots
     fig, axs = plt.subplots(2, 2)
 
+    # Configuración del título
     if final:
-        plt.title("Resultados con una corrida")
+        fig.canvas.set_window_title("Resultados con 5 corridas")
     else:
-        plt.title("Resultados con 5 corridas")
+        fig.canvas.set_window_title("Resultados con 1 corrida")
 
     # Gráfico de frecuencias relativas
     axs[0, 0].plot(frecuencias, 'tab:blue', label="FRN")
@@ -45,6 +46,61 @@ def cargarResultadoGraphs(frecuencias, promedios, varianzas, desvios, final):
     axs[1, 1].plot(desvios, 'tab:purple', label="VDN")
     axs[1, 1].set_title('Desvío')
     axs[1, 1].axhline(desv_t, color='red', linestyle='--', label="VDT")
+    
+    # Detalles de configuración
+    for ax in fig.get_axes():
+        ax.grid(True)
+        ax.legend()
+        plt.setp(ax, xlabel="Número de Tiradas")
+    fig.tight_layout()
+
+def CargarTodosResultadosGraphs(frecuencias, promedios, varianzas, desvios):
+    # Configuración de subplots
+    fig, axs = plt.subplots(2, 2)
+
+    # Configuración del título
+    fig.canvas.set_window_title("Resultados separados para 5 corridas")
+
+    # Gráfico de frecuencias relativas
+    axs[0, 0].plot(frecuencias[0], 'tab:blue')
+    axs[0, 0].plot(frecuencias[1], 'tab:orange')
+    axs[0, 0].plot(frecuencias[2], 'tab:green')
+    axs[0, 0].plot(frecuencias[3], 'tab:purple')
+    axs[0, 0].plot(frecuencias[4], 'tab:pink')
+    axs[0, 0].plot(frecuencias[5], 'tab:brown')
+    axs[0, 0].set_title("Frecuencia Relativa")
+    axs[0, 0].axhline(fr_t, color='red', linestyle='--', label="FRE")
+    plt.setp(axs[0, 0], ylabel="FR del Número "+str(muestra))
+
+    # Gráfico de promedios
+    axs[0, 1].plot(promedios[0], 'tab:blue')
+    axs[0, 1].plot(promedios[1], 'tab:orange')
+    axs[0, 1].plot(promedios[2], 'tab:green')
+    axs[0, 1].plot(promedios[3], 'tab:purple')
+    axs[0, 1].plot(promedios[4], 'tab:pink')
+    axs[0, 1].plot(promedios[5], 'tab:brown')
+    axs[0, 1].set_title('Valor Promedio')
+    axs[0, 1].axhline(pr_t, color='red', linestyle='--', label="VPE")
+
+    # Gráfico de varianzas
+    axs[1, 0].plot(varianzas[0], 'tab:blue')
+    axs[1, 0].plot(varianzas[1], 'tab:orange')
+    axs[1, 0].plot(varianzas[2], 'tab:green')
+    axs[1, 0].plot(varianzas[3], 'tab:purple')
+    axs[1, 0].plot(varianzas[4], 'tab:pink')
+    axs[1, 0].plot(varianzas[5], 'tab:brown')
+    axs[1, 0].set_title('Varianza')
+    axs[1, 0].axhline(var_t, color='red', linestyle='--', label="VVE")
+
+    # Gráfico de desvíos
+    axs[1, 1].plot(desvios[0], 'tab:blue')
+    axs[1, 1].plot(desvios[1], 'tab:orange')
+    axs[1, 1].plot(desvios[2], 'tab:green')
+    axs[1, 1].plot(desvios[3], 'tab:purple')
+    axs[1, 1].plot(desvios[4], 'tab:pink')
+    axs[1, 1].plot(desvios[5], 'tab:brown')
+    axs[1, 1].set_title('Desvío')
+    axs[1, 1].axhline(desv_t, color='red', linestyle='--', label="VDE")
     
     # Detalles de configuración
     for ax in fig.get_axes():
@@ -112,6 +168,9 @@ if __name__ == "__main__":
 
     # Primer array de resultados
     cargarResultadoGraphs(fr_array[0], pr_array[0], var_array[0], desv_array[0], False)
+
+    # Arrays de resultados mostrados simultáneamente
+    CargarTodosResultadosGraphs(fr_array, pr_array, var_array, desv_array)
 
     # Nuevo array de resultados con el promedio de todos los arrays de resultados
     fr_array_final = (fr_array[0] + fr_array[1] + fr_array[2] + fr_array[3] + fr_array[4] + fr_array[5]) / resultados
