@@ -101,7 +101,7 @@ corridas = variasCorridas(cantCorridas,cantMaxTiradas)
 
 # Plot n°1 - Análisis de frecuencia relativa
 plt.subplot(2, 2, 1)
-plt.title("Frecuencia relativa de "+str(cantCorridas)+" experimentos")
+plt.title("Frecuencias relativas de "+str(cantCorridas)+" experimentos")
 plt.xlabel("Número de tiradas")
 plt.grid(True)
 for c in corridas:
@@ -112,7 +112,7 @@ plt.legend(loc='upper right')
 
 # Plot n°2 - Análisis de promedio
 plt.subplot(2, 2, 2)
-plt.title("Promedio de "+str(cantCorridas)+" experimentos")
+plt.title("Promedios de "+str(cantCorridas)+" experimentos")
 plt.xlabel("Número de tiradas")
 plt.grid(True)
 for c in corridas:
@@ -123,7 +123,7 @@ plt.legend(loc='lower right')
 
 # Plot n°3 - Análisis de varianza
 plt.subplot(2, 2, 3)
-plt.title("Varianza de "+str(cantCorridas)+" experimentos")
+plt.title("Varianzas de "+str(cantCorridas)+" experimentos")
 plt.xlabel("Número de tiradas")
 plt.grid(True)
 for c in corridas:
@@ -135,7 +135,7 @@ plt.legend(loc='lower right')
 
 # Plot n°4 - Análisis de desvío
 plt.subplot(2, 2, 4)
-plt.title("Desvío de "+str(cantCorridas)+" experimentos")
+plt.title("Desvíos de "+str(cantCorridas)+" experimentos")
 plt.xlabel("Número de tiradas")
 plt.grid(True)
 for c in corridas:
