@@ -32,10 +32,12 @@ def menu():
         print("Por favor, seleccione la opción:")
         print("     1 _ Modificar preferencias")
         print("     2 _ Simular Martingale")
-        print("     3 _ Simular Martingale modificado")
-        print("     4 _ Simular Fibonacci")
-        print("     5 _ No jugar")
-        print("     6 _ Salir")
+        print("     3 _ Simular Martingale Modificado")
+        print("     4 _ Simular Martingale Inverso")
+        print("     5 _ Simular Fibonacci")
+        print("     6 _ Simular Proporción Constante")
+        print("     7 _ No jugar")
+        print("     8 _ Salir")
         print("")
 
         opt = int(input("--> "))
@@ -66,15 +68,31 @@ def menu():
 
         elif opt == 4:
             for i in range(0,simulaciones):
-                resultados.append(estrategiaFibonacci(capitalDisponible, "p", jugadasMax))
+                resultados.append(estrategiaMartingaleInverso(capitalDisponible, "p", jugadasMax))
             graficarResultados(resultados)
 
         elif opt == 5:
+            for i in range(0,simulaciones):
+                resultados.append(estrategiaFibonacci(capitalDisponible, "p", jugadasMax))
+            graficarResultados(resultados)
+
+        elif opt == 6:
+            if capitalFinito:
+                proporcion = int(input("Ingrese la proporción de la caja a apostar en cada apuesta --> %"))
+                for i in range(0,simulaciones):
+                    resultados.append(estrategiaPropConstante(capitalDisponible, proporcion, "p", jugadasMax))
+                graficarResultados(resultados)
+            else:
+                clearScreen()
+                print("Esta estrategia no admite dinero ilimitado.")
+                input("Presione Enter para continuar...")
+
+        elif opt == 7:
             clearScreen()
             print("Felicitaciones, no ha jugado a la ruleta y  ha conservado todo su dinero.")
             input("Presione Enter para continuar...")
 
-        elif opt == 6:
+        elif opt == 8:
             break
 
         clearScreen()

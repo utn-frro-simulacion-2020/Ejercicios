@@ -10,6 +10,7 @@ def graficarResultados(resultados):
         plt.plot(r['capital'])
     if resultados[0]['capital'][0] != 0:
         plt.axhline(resultados[0]['capital'][0], color='black', linestyle='dashed', label='Capital inicial')
+        plt.legend(loc='lower right')
 
     plt.subplot(1, 2, 2)
     plt.title("Frecuencia relativa de apuestas ganadas")

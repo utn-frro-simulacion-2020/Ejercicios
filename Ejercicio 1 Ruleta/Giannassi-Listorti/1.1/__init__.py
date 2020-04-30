@@ -46,7 +46,7 @@ def cargarResultadoGraphs(frecuencias, promedios, varianzas, desvios, final):
     axs[1, 1].plot(desvios, 'tab:purple', label="VDN")
     axs[1, 1].set_title('Desvío')
     axs[1, 1].axhline(desv_t, color='red', linestyle='--', label="VDT")
-    
+
     # Detalles de configuración
     for ax in fig.get_axes():
         ax.grid(True)
@@ -101,7 +101,7 @@ def CargarTodosResultadosGraphs(frecuencias, promedios, varianzas, desvios):
     axs[1, 1].plot(desvios[5], 'tab:brown')
     axs[1, 1].set_title('Desvío')
     axs[1, 1].axhline(desv_t, color='red', linestyle='--', label="VDE")
-    
+
     # Detalles de configuración
     for ax in fig.get_axes():
         ax.grid(True)
@@ -115,8 +115,8 @@ if __name__ == "__main__":
     numeros = np.arange(0, 37)
 
     fr_t = round(1/len(numeros), 6)
-    pr_t = round(calcularPromedio(numeros), 6) 
-    var_t = round(calcularVarianza(numeros), 6) 
+    pr_t = round(calcularPromedio(numeros), 6)
+    var_t = round(calcularVarianza(numeros), 6)
     desv_t = round(calcularDesviacionDesdeVarianza(var_t), 6)
 
 

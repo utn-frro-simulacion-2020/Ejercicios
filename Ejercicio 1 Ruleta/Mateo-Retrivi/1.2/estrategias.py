@@ -19,8 +19,9 @@ def fib ( n ):
 
 ruleta = Ruleta()
 
+# ------------------------------------------------------------------------------------------
 # Estrategias ------------------------------------------------------------------------------
-
+# ------------------------------------------------------------------------------------------
 
 # estrategia Martingale
 def estrategiaMartingale(capitalInicial, paridad, AumentoExtra, jugadasMax):
@@ -47,6 +48,34 @@ def estrategiaMartingale(capitalInicial, paridad, AumentoExtra, jugadasMax):
 
     return {'capital' : capitalIteraciones, 'frecuencia': frecuenciaDeGanadas}
 
+# ------------------------------------------------------------------------------------------
+
+# estrategia Martingale Inverso
+def estrategiaMartingaleInverso(capitalInicial, paridad, jugadasMax):
+    apuestasGanadoras = 0
+    frecuenciaDeGanadas = []
+    capitalIteraciones=[]
+    capitalIteraciones.append(capitalInicial)
+    apuesta = 1
+    for  i in range(0,jugadasMax):
+        if (capitalIteraciones[i] >= apuesta and capitalInicial!=0) or capitalInicial == 0:
+            res = ruleta.apostarAParidad(paridad)
+            if res:
+                apuestasGanadoras += 1
+                capitalIteraciones.append(capitalIteraciones[i]+apuesta)
+                apuesta = apuesta * 2
+
+            elif not res:
+                capitalIteraciones.append(capitalIteraciones[i]-apuesta)
+                apuesta = 1
+
+            frecuenciaDeGanadas.append(apuestasGanadoras/(i+1))
+
+        else: break
+
+    return {'capital' : capitalIteraciones, 'frecuencia': frecuenciaDeGanadas}
+
+# ------------------------------------------------------------------------------------------
 
 # estrategia Fibonacci
 # Si se pierde, se sigue adelante con la secuencia
@@ -76,5 +105,29 @@ def estrategiaFibonacci(capitalInicial, paridad, jugadasMax):
             frecuenciaDeGanadas.append(apuestasGanadoras/(i+1))
 
         else: break
+
+    return {'capital' : capitalIteraciones, 'frecuencia': frecuenciaDeGanadas}
+
+# ------------------------------------------------------------------------------------------
+
+# estrategia Proporción Constante
+def estrategiaPropConstante(capitalInicial, proporcion, paridad, jugadasMax):
+    apuestasGanadoras = 0
+    frecuenciaDeGanadas = []
+    capitalIteraciones=[]
+    prop = proporcion * 0.01
+    capitalIteraciones.append(capitalInicial)
+    apuesta = capitalIteraciones[-1] * prop
+    for  i in range(0,jugadasMax):
+        res = ruleta.apostarAParidad(paridad)
+        if res:
+            apuestasGanadoras += 1
+            capitalIteraciones.append(capitalIteraciones[i]+apuesta)
+
+        elif not res:
+            capitalIteraciones.append(capitalIteraciones[i]-apuesta)
+
+        frecuenciaDeGanadas.append(apuestasGanadoras/(i+1))
+        apuesta = capitalIteraciones[-1] * prop
 
     return {'capital' : capitalIteraciones, 'frecuencia': frecuenciaDeGanadas}
