@@ -3,7 +3,7 @@ import random as random
 class Ruleta:
     def generarTirada(self):
         return random.randint(0,36)
-    
+
     def apostarAParidad(self, paridadApostada):
         nro = self.generarTirada()
         if nro == 0:
