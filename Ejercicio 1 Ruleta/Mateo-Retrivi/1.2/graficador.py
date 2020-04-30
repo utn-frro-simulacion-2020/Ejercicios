@@ -5,6 +5,7 @@ def graficarResultados(resultados):
     plt.subplot(1, 2, 1)
     plt.title("Dinero en caja")
     plt.xlabel("n° de tirada")
+    plt.ylabel("Capital")
     plt.grid(True)
     for r in resultados:
         plt.plot(r['capital'])
@@ -15,6 +16,7 @@ def graficarResultados(resultados):
     plt.subplot(1, 2, 2)
     plt.title("Frecuencia relativa de apuestas ganadas")
     plt.xlabel("n° de tirada")
+    plt.ylabel("Frecuencia")
     plt.grid(True)
     for r in resultados:
         plt.plot([0]+r['frecuencia'])
