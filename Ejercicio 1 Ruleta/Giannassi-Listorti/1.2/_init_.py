@@ -52,7 +52,8 @@ def menu():
         capital_inicial = 0
         apuesta_inicial = 0
         resultados = []
-        capital_inicial, paridad, apuesta_inicial ,iteraciones = configuraciones()
+        if(opcion!=0):
+            capital_inicial, paridad, apuesta_inicial ,iteraciones = configuraciones()
         if opcion==1:
             for i in range(0,corridas):
                 resultados.append(Martingala(capital_inicial, paridad, apuesta_inicial, iteraciones))
