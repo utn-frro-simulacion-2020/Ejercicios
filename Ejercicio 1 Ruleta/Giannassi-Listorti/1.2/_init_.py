@@ -21,22 +21,11 @@ def configuraciones():
         print("Tiene que elegir entre par(p) e impar(i)")
         paridad = abs(int(float(input("Elige por Par o Impar (p/i): "))))
 
-    apuesta_inicial = abs(int(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): "))))
-    print("Si eligió como estrategia la D'Alembert, la apuesta inicial siempre será 1")
-    if(capital_inicial==0):
-        while(apuesta_inicial<0):
-            print("Cantidad de apuesta incorrecta")
-            apuesta_inicial = abs(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): ")))
-    else:
-        while(apuesta_inicial>capital_inicial):
-            print("Cantidad de apuesta incorrecta")
-            apuesta_inicial = abs(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): ")))
-
-    return capital_inicial, paridad, apuesta_inicial, iteraciones
+    return capital_inicial, paridad, iteraciones
 
 def menu():
-    corridas = 6
     opcion = -1
+    corridas = 6
     while(opcion!=0):
         print("Estrategias:")
         print("1 - Martingala")
@@ -53,19 +42,31 @@ def menu():
         apuesta_inicial = 0
         resultados = []
         if(opcion!=0):
-            capital_inicial, paridad, apuesta_inicial ,iteraciones = configuraciones()
+            capital_inicial, paridad ,iteraciones = configuraciones()
         if opcion==1:
+            apuesta_inicial = abs(int(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): "))))
+            if(capital_inicial==0):
+                while(apuesta_inicial<0):
+                    print("Cantidad de apuesta incorrecta")
+                    apuesta_inicial = abs(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): ")))
+            else:
+                while(apuesta_inicial>capital_inicial):
+                    print("Cantidad de apuesta incorrecta")
+                    apuesta_inicial = abs(float(input("Ingrese apuesta inicial (tiene que ser menor o igual al capital inicial, si es capital infinito puede ser cualquier numero positivo): ")))
             for i in range(0,corridas):
                 resultados.append(Martingala(capital_inicial, paridad, apuesta_inicial, iteraciones))
-            graficarResultados(resultados)
+            graficarResultados(resultados,1)
+            graficarResultados(resultados,corridas)
         elif opcion==2:
             for i in range(0,corridas):
                 resultados.append(Dalembert(capital_inicial, paridad, 1, iteraciones))
-            graficarResultados(resultados)
+            graficarResultados(resultados,1)
+            graficarResultados(resultados,corridas)
         elif opcion==3:
             for i in range(0,corridas):
-                resultados.append(Fibonacci(capital_inicial, paridad, apuesta_inicial, iteraciones))
-            graficarResultados(resultados)
+                resultados.append(Fibonacci(capital_inicial, paridad, 1, iteraciones))
+            graficarResultados(resultados,1)
+            graficarResultados(resultados,corridas)
 
     return None
 
