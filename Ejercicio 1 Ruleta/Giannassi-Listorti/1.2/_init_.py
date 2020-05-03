@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from os import system, name
 import numpy as np
 from graficador import graficarResultados
 from estrategias import *

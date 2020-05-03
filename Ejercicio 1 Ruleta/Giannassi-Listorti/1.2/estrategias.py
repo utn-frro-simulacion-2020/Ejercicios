@@ -1,10 +1,16 @@
 from ruleta import Ruleta
 
-def fib_gen(prev, num):
-    prev, num = prev, n
-    while(True):
-        yield prev, num
-        prev, num = num, prev+num
+def fib ( n ):
+    PHI = 1.6180339
+    f = [ 0, 1, 1, 2, 3, 5 ]
+    if n < 6:
+        return f[n]
+    t = 5
+    fn = 5
+    while t < n:
+        fn = round(fn * PHI)
+        t+=1
+    return fn
 
 ruleta = Ruleta()
 
@@ -13,7 +19,8 @@ def Martingala(capitalInicial, paridad, apuestaInicial, iteraciones):
     frecuenciaDeGanadas = []
     capitalIteraciones=[]
     capitalIteraciones.append(capitalInicial)
-    apuesta = apuestaInicial
+    posicionFibonacci = 1
+    apuesta = fib(posicionFibonacci)
     for  i in range(0,iteraciones):
         if (capitalIteraciones[i] >= apuesta and capitalInicial!=0) or capitalInicial == 0:
             res = ruleta.apostarAParidad(paridad)
@@ -60,24 +67,25 @@ def Fibonacci(capitalInicial, paridad, apuestaInicial, iteraciones):
     frecuenciaDeGanadas = []
     capitalIteraciones = []
     capitalIteraciones.append(capitalInicial)
-    generadorFib = fib_gen(apuestaInicial)
-    prev,apuesta = next(generadorFib)
-    for i in range(0, iteraciones):
-        if(capitalIteraciones[i]>=apuesta and capitalInicial!=0) or capitalInicial==0:
+    posicionFibonacci = 1
+    apuesta = fib(posicionFibonacci)
+    for  i in range(0,iteraciones):
+        if (capitalIteraciones[i] >= apuesta and capitalInicial!=0) or capitalInicial == 0:
             res = ruleta.apostarAParidad(paridad)
             if res:
                 apuestasGanadoras += 1
                 capitalIteraciones.append(capitalIteraciones[i]+apuesta)
-                if(prev!=0):
-                    apuesta=prev
-                else:
-                    apuesta=apuestaInicial
+                if (posicionFibonacci - 2  <= 0): posicionFibonacci = 1
+                else: posicionFibonacci -= 2
+                apuesta=fib(posicionFibonacci)
 
             else:
                 capitalIteraciones.append(capitalIteraciones[i]-apuesta)
-                prev, apuesta = next(generadorFib)
+                posicionFibonacci+=1
+                apuesta=fib(posicionFibonacci)
 
             frecuenciaDeGanadas.append(apuestasGanadoras/(i+1))
+
         else: break
     
     return {'capital' : capitalIteraciones, 'frecuencia': frecuenciaDeGanadas}
