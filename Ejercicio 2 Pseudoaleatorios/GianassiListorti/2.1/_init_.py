@@ -1,6 +1,8 @@
 import numpy as np
+from terminaltables import AsciiTable
 from generadores import GeneradorGCL
 from generadores import GeneradorMiddleSquare
+from tests import *
 from os import system, name
 
 def clearScreen():
@@ -9,33 +11,41 @@ def clearScreen():
     else:
         _ = system('clear')
 
-def muestraNumpy(n, seed, rango):
+def muestraNumpy(n, seed):
     np.random.seed(seed)
-    array = np.zeros(n, dtype=int)
+    array = np.zeros(n)
     for i in range(n):
-        array[i] = np.random.randint(rango[0], rango[1])
+        array[i] = np.random.random()
     return array
+
+def testear(muestra, tipo):
+    table_data = [
+        ['Test '+tipo, 'Resultado']
+    ]
+    print("Realizando tests para la muestra generada por "+tipo)
+    print("Test de Kolmogorov Smirnov: ")
+    result = kstest(muestra)
+    table_data.append(["Kolmogorov Smirnov", result])
+    print("Test de Chi Cuadrado: ")
+    result = chiCuadrado(muestra)
+    table_data.append(["Chi Cuadrado", result])
+    print("Test de Corridas MediaArriba y Abajo de la Media:")
+    result = corridasArribaAbajoMediaTest(muestra)
+    table_data.append(["Corridas Arriba y Abajo de la Media", result])
+
+    table = AsciiTable(table_data)
+    print(table.table)
 
 if __name__ == "__main__":
     clearScreen()
-    rango = [1, 50]
     print("BIENVENIDO A LA SIMULACIÓN DE NÚMEROS PSEUDOALEATORIOS.")
     seed = int(float(input("Ingrese una semilla: ")))
-    print("A continuación generaremos números aleatorioos con esa semilla, comparando dos métodos con el generador de Numpy")
     #Numpy
-    print("Comparando 3 muestras del generador de Numpy con la misma semilla")
-    print(muestraNumpy(5, seed, rango))
-    print(muestraNumpy(5, seed, rango))
-    print(muestraNumpy(5, seed, rango))
+    muestra = muestraNumpy(1000, seed)
+    testear(muestra, "Numpy")
     #GCL
-    print("Comparando 3 muestras del generador de GCL con la misma semilla")
-    generadorGCL = GeneradorGCL(seed)
-    print(generadorGCL.muestra(5, rango))
-    print(generadorGCL.muestra(5, rango))
-    print(generadorGCL.muestra(5, rango))
+    muestra =  GeneradorGCL(seed).muestra(1000)
+    testear(muestra, "Generador GCL")
     #Middle-Square
-    print("Comparando 3 muestras del generador de medios del cuadrado con la misma semilla")
-    generadorMQ = GeneradorMiddleSquare(seed)
-    print(generadorMQ.muestra(5, rango))
-    print(generadorMQ.muestra(5, rango))
-    print(generadorMQ.muestra(5, rango))
+    muestra = GeneradorMiddleSquare(seed).muestra(1000)
+    testear(muestra, "Generador Middle Square")
