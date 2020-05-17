@@ -1,8 +1,34 @@
 from math import sqrt
 import numpy as np
+import collections
 
-def waitingTest(muestra):
+def testParidad(muestra):
+    n = len(muestra)
+    mult = 100000000
+    muestraArreglada = []
+    for i in range(0,n):
+        num = str(int(np.trunc(muestra[i]*mult)))
+        if num==str(0):
+            muestraArreglada.append(0)
+        else:
+            muestraArreglada.append(int(num[0] + num[1] + num[2] + num[3]))
+    x = 0
+    for m in muestraArreglada:
+        if m % 2 == 0:
+            x = x + 1
+    frecuencia = x/n
+    if frecuencia >=0.45 and frecuencia <= 0.55:
+        return True
+        print("Test aprobado. Muestra aleatoria, las frecuencias de las paridades se encuentran en el rango de aceptación")
+    else: 
+        print("Test desaprobado. Muestra con números mayormente de una paridad notablemente")
+        return False
+
+    return None
+                
     
+
+
 
 def kstest(muestra):
     muestra = sorted(muestra)
@@ -29,7 +55,7 @@ def kstest(muestra):
         return False
     
 
-def corridasArribaAbajoMediaTest(muestra):
+def rachasArribaAbajoMediaTest(muestra):
     listaOperadores = []
     N = len(muestra)
     n1 = 0
@@ -56,11 +82,12 @@ def corridasArribaAbajoMediaTest(muestra):
     mediaB = ((2*n1*n2)/(n1+n2))+1
     varianzaB = (2*n1*n2*((2*n1*n2)-N))/(N*N*(N-1))
     Z = (b - mediaB)/(np.sqrt(varianzaB))
+    #alfa = 0.05 , por lo tanto Z(1-(alfa/2)) = 1.96
     if abs(Z)<1.96:
-        print("Test aprobado. Se demuestra la aleatoriedad")
+        print("Test aprobado. Se demuestra la Independecia, por lo tanto, la aleatoriedad también")
         return True
     else:
-        print("Test desaprobado. Se rechaza la aleatoriedad")
+        print("Test desaprobado. Se rechaza la independencia")
         return False
             
 def chiCuadrado(muestra):

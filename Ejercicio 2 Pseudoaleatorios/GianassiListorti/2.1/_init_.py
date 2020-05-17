@@ -4,6 +4,7 @@ from generadores import GeneradorGCL
 from generadores import GeneradorMiddleSquare
 from tests import *
 from os import system, name
+import random as rand
 
 def clearScreen():
     if name == 'nt':
@@ -18,6 +19,13 @@ def muestraNumpy(n, seed):
         array[i] = np.random.random()
     return array
 
+def muestraPyRandom(n, seed):
+    rand.SystemRandom(seed)
+    array = np.zeros(n)
+    for i in range(n):
+        array[i] = rand.random()
+    return array
+
 def testear(muestra, tipo):
     table_data = [
         ['Test '+tipo, 'Resultado']
@@ -29,9 +37,12 @@ def testear(muestra, tipo):
     print("Test de Chi Cuadrado: ")
     result = chiCuadrado(muestra)
     table_data.append(["Chi Cuadrado", result])
-    print("Test de Corridas MediaArriba y Abajo de la Media:")
-    result = corridasArribaAbajoMediaTest(muestra)
-    table_data.append(["Corridas Arriba y Abajo de la Media", result])
+    print("Test de Rachas Arriba y Abajo de la Media:")
+    result = rachasArribaAbajoMediaTest(muestra)
+    table_data.append(["Rachas Arriba y Abajo de la Media", result])
+    print("Test de Paridad:")
+    result = testParidad(muestra)
+    table_data.append(["Test de Paridad", result])
 
     table = AsciiTable(table_data)
     print(table.table)
@@ -40,6 +51,9 @@ if __name__ == "__main__":
     clearScreen()
     print("BIENVENIDO A LA SIMULACIÓN DE NÚMEROS PSEUDOALEATORIOS.")
     seed = int(float(input("Ingrese una semilla: ")))
+    #Random(Python)
+    muestra = muestraPyRandom(1000, seed)
+    testear(muestra, "Random(Python)")
     #Numpy
     muestra = muestraNumpy(1000, seed)
     testear(muestra, "Numpy")
@@ -49,3 +63,6 @@ if __name__ == "__main__":
     #Middle-Square
     muestra = GeneradorMiddleSquare(seed).muestra(1000)
     testear(muestra, "Generador Middle Square")
+
+
+    

@@ -9,10 +9,6 @@ class GeneradorMiddleSquare:
     def gen(self):
         div=10000 #divisor de la x para que devuelva un valor entre 0 y 1
         x = self.seed
-        #if len(str(x)) > 4:
-        #    x = x[:4]
-        #while len(str(x)) < 4:
-        #    x = int(str(x)+"1")
         while True:
             square = x * x
             if len(str(square)) < 8:
