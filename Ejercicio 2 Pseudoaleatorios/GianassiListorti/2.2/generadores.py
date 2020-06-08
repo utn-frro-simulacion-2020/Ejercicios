@@ -135,7 +135,7 @@ class GeneradorHipergeo:
 
 
 class GeneradorEmpirica:
-    def gen():
+    def gen(self):
         p = [0.273, 0.037, 0.195, 0.009, 0.124,
              0.058, 0.062, 0.151, 0.047, 0.044]
         while True:
@@ -158,5 +158,24 @@ class GeneradorEmpirica:
             sample.append(observation)
         return sample
 
-    class GeneradorPoisson:
-        def gen()
+class GeneradorPoisson:
+    def gen(self, p):
+        x = 0.0
+        tr = 1.0
+        b = np.exp(-p)
+        while True:
+            while tr>=b:
+                r = random.random()
+                tr = tr + r
+                if tr>=b:
+                    x = x + 1.0
+            yield x
+
+    def muestra(self, p, n):
+        sample = []
+        generadorsito = self.gen(p)
+        for _ in range(n):
+            observation = float(next(generadorsito))
+            sample.append(observation)
+        return sample
+

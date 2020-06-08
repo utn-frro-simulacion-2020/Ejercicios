@@ -1,8 +1,8 @@
 from os import system, name
 from generadores import *
-from tests import *
 from graficador import Graficadores
 
+# from tests import *
 
 def clearScreen():
     if name == 'nt':
@@ -19,10 +19,13 @@ if __name__ == "__main__":
     muestraGamma = GeneradorGamma().muestra(5,20, 1000)
     muestraPascal = GeneradorPascal().muestra(5,0.5,1000)
     muestraBinomial = GeneradorBinomial().muestra(1000,0.4,1000)
+    muestraPoisson = GeneradorPoisson().muestra(50, 1000)
+    muestraEmpirica = GeneradorEmpirica().muestra(1000)
+    muestraHipergeo = GeneradorHipergeo().muestra(5000000,500,0.4, 1000)
     # tests
-    squareChiUniform(muestraUniforme)
-    squareChiExponential(muestraExponencial)
-    squareChiNormal(muestraNormal)
+    # squareChiUniform(muestraUniforme)
+    # squareChiExponential(muestraExponencial)
+    # squareChiNormal(muestraNormal)
     # graficos
     gfx = Graficadores()
     gfx.graficarUniforme(muestraUniforme)
@@ -31,4 +34,7 @@ if __name__ == "__main__":
     gfx.graficarGamma(muestraGamma)
     gfx.graficarBinomial(muestraBinomial)
     gfx.graficarPascal(muestraPascal)
+    gfx.graficarPoisson(muestraPoisson)
+    gfx.graficarEmpirica(muestraEmpirica)
+    gfx.graficarHipergeo(muestraHipergeo)
 

@@ -36,3 +36,21 @@ class Graficadores:
         plt.hist(b, 25, histtype="stepfilled",
                  alpha=.7, linewidth=5, color='r')
         plt.show()
+
+    def graficarPoisson(self, po):
+        plt.title("poisson")
+        plt.hist(po, 25, histtype="stepfilled",
+                 alpha=.7, linewidth=5, color='r')
+        plt.show()
+
+    def graficarEmpirica(self, em):
+        plt.title("empírica discreta")
+        plt.hist(em, 25, histtype="stepfilled",
+                 alpha=.7, linewidth=5, color='r')
+        plt.show()
+    
+    def graficarHipergeo(self, hip):
+        plt.title("hipergeométrica")
+        plt.hist(hip, 25, histtype="stepfilled",
+                 alpha=.7, linewidth=5, color='r')
+        plt.show()
