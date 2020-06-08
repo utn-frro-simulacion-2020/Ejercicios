@@ -1,14 +1,35 @@
 from math import sqrt
 import numpy as np
+import collections
 
-def waitingTest(muestra):
-    
+def testParidad(muestra):
+    n = len(muestra)
+    x = 0
+    for m in muestra:
+        mstr = str(m)
+        pos = len(mstr)-1
+        if int(mstr[pos]) % 2 == 0:
+            x = x + 1
+    frecuencia = x/n
 
+    print("frec: "+ str(frecuencia) + " , rango aceptación: 0.45 - 0.55")
+    print("¿frecuencia dentro del rango de aceptación?")
+
+    if frecuencia >=0.45 and frecuencia <= 0.55:
+        print("Test aprobado. Muestra aleatoria, las frecuencias de las paridades se encuentran en el rango de aceptación")
+        print("")
+        return True
+    else: 
+        print("Test desaprobado. Muestra con números mayormente de una paridad notablemente")
+        print("")
+        return False
+
+                
 def kstest(muestra):
     muestra = sorted(muestra)
     d_plus = []
     d_minus = []
-    esperada = 1.36/sqrt(len(muestra)) # Generalización de fórmula de una tabla
+    D_esperada = 1.36/sqrt(len(muestra)) # Generalización de fórmula de una tabla
 
     for i in range(1, len(muestra)+1):
         x= i/len(muestra) - muestra[i-1]
@@ -20,16 +41,22 @@ def kstest(muestra):
         d_minus.append(y)
 
     # Calculate max(D+, D-) 
-    ans = max(max(d_plus, d_minus)) 
-    if(ans<esperada):
+    D = max(max(d_plus, d_minus)) 
+
+    print("D calculada: "+ str(D) + " , D esperada : " + str(D_esperada))
+    print("¿D calculadans < D esperada?")
+
+    if(D<D_esperada):
         print("Test aprobado. Muestra uniforme")
+        print("")
         return True
     else:
         print("Test desaprobado. No implica que no sea uniforme")
+        print("")
         return False
     
 
-def corridasArribaAbajoMediaTest(muestra):
+def rachasArribaAbajoMediaTest(muestra):
     listaOperadores = []
     N = len(muestra)
     n1 = 0
@@ -56,18 +83,25 @@ def corridasArribaAbajoMediaTest(muestra):
     mediaB = ((2*n1*n2)/(n1+n2))+1
     varianzaB = (2*n1*n2*((2*n1*n2)-N))/(N*N*(N-1))
     Z = (b - mediaB)/(np.sqrt(varianzaB))
+    #alfa = 0.05 , por lo tanto Z(1-(alfa/2)) = Z(0.025) = 1.96
+
+    print("Z calculada: "+str(Z)+" , Z(0.025) = 1.96")
+    print("¿|Z| < Z(0.025)?")
+
     if abs(Z)<1.96:
-        print("Test aprobado. Se demuestra la aleatoriedad")
+        print("Test aprobado. Se demuestra la Independecia, por lo tanto, la aleatoriedad también")
+        print("")
         return True
     else:
-        print("Test desaprobado. Se rechaza la aleatoriedad")
+        print("Test desaprobado. Se rechaza la independencia")
+        print("")
         return False
             
 def chiCuadrado(muestra):
     valorTabla = 16.9190 # con alpha 0.05 y grado de libertad 9
     freq_esperada = len(muestra)/10
-    frecuencias = [] * 10
-    intervalos = [0] * 10
+    frecuencias = np.zeros(10)
+    intervalos = np.zeros(10)
     #divido la muestra en 10 intervalos
     for i in range(0, len(muestra)):
         if(muestra[i]<0.1): intervalos[0] = intervalos[0] + 1
@@ -86,9 +120,14 @@ def chiCuadrado(muestra):
 
     suma = sum(frecuencias)
 
+    print("Suma de frecuencias: "+str(suma)+ " , frecuencia esperada: "+str(freq_esperada)+" , valor en la tabla(alpha=0.05, grado libertad=9): 16.9190")
+    print("¿Suma de frecuencias < valor en tabla?")
+
     if(suma<valorTabla):
         print("Test aprobado. Muestra uniforme")
+        print("")
         return True
     else:
         print("Test desaprobado. No implica que no sea uniforme")
+        print("")
         return False
