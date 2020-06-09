@@ -28,25 +28,25 @@ class Graficadores:
 
     def graficarPascal(self, p):
         plt.title("pascal")
-        plt.bar(p,np.max(p),width=0.1, color='r')
+        plt.bar(p,np.arange(0,1000),width=0.1, color='r')
         plt.show()
 
     def graficarBinomial(self, b):
         plt.title("binomial")
-        plt.bar(b,np.max(b),width=0.1, color='r')
+        plt.bar(b,np.arange(0,1000),width=0.5, color='r')
         plt.show()
 
     def graficarPoisson(self, po):
         plt.title("poisson")
-        plt.bar(po,np.max(po),width=0.1, color='r')
+        plt.bar(po,np.arange(0,1000),width=0.5, color='r')
         plt.show()
 
     def graficarEmpirica(self, em):
         plt.title("empírica discreta")
-        plt.bar(em,np.max(em),width=0.1, color='r')
+        plt.bar(em,np.arange(0,1000),width=0.5, color='r')
         plt.show()
     
     def graficarHipergeo(self, hip):
         plt.title("hipergeométrica")
-        plt.bar(hip,np.max(hip),width=0.1, color='r')
+        plt.bar(hip,np.arange(0,1000),width=0.5, color='r')
         plt.show()
