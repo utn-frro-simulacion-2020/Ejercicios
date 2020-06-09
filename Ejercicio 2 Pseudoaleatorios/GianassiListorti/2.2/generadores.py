@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import math
 
 
 class GeneradorUniforme:
@@ -160,15 +161,16 @@ class GeneradorEmpirica:
 
 class GeneradorPoisson:
     def gen(self, p):
-        x = 0.0
-        tr = 1.0
-        b = np.exp(-p)
         while True:
+            x = 0
+            tr = 1
+            b = 0
             while tr>=b:
+                b = math.exp(-p)
                 r = random.random()
-                tr = tr + r
+                tr = tr * r
                 if tr>=b:
-                    x = x + 1.0
+                    x = x + 1
             yield x
 
     def muestra(self, p, n):

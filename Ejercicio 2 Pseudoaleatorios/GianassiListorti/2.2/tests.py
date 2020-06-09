@@ -111,3 +111,82 @@ def squareChiNormal(sample):
     else:
         print("No paso el test")
         return False
+
+
+def squareChiBinomial(sample):
+    print("Test Chi Cuadrado para distribucion Binomial")
+    observado = []
+    esperado = []
+    X = scipy.stats.binom(1000, 0.4)
+    c = 354
+    chiquadesperado = round(scipy.stats.chi2.ppf(1-0.05, 9), 2)
+    for i in range(10):
+        x = 0
+        for j in range(len(sample)):
+            if (c-14) <= float(sample[j]) < c:
+                x += 1
+        observado.append(x)
+        total = sum(X.pmf(k) for k in range(c)) - sum(X.pmf(m)
+                                                      for m in range(c-14))
+        esperado.append(1000*total)
+        c += 14
+    x2 = 0
+    for i in range(len(observado)):
+        x1 = (((observado[i]-esperado[i])**2)/esperado[i])
+        x2 += x1
+    if (x2 < chiquadesperado):
+        print("Test aprobado. muestra Binomial")
+        return True
+    else:
+        print("No paso el test")
+        return False
+
+def squareChiPoisson(sample):
+    print("Test Chi Cuadrado para distribucion Binomial")
+    observado = []
+    esperado = []
+    X=scipy.stats.poisson(50)
+    chiquadesperado = round(scipy.stats.chi2.ppf(1-0.05, 9), 2)
+    c =26
+    for i in range(10):
+        x = 0
+        for j in range(len(sample)):
+            if (c-6) <= float(sample[j]) < c:
+                x += 1
+        observado.append(x)
+        total=sum(X.pmf(k) for k in range (c)) -sum(X.pmf(m) for m in range (c-6))
+        esperado.append(1000*total)
+        c +=6 
+    x2 = 0
+    for i in range(len(observado)):
+        x1 = (((observado[i]-esperado[i])**2)/esperado[i])
+        x2 += x1
+    if (x2 < chiquadesperado):
+        print("Test aprobado. muestra Binomial")
+        return True
+    else:
+        return False
+
+def squeareChiEmpirica(muestra):
+    print("Test Chi Cuadrado para distribucion Empírica")
+    observado = []
+    esperado = []
+    chiquadesperado = round(scipy.stats.chi2.ppf(1-0.05, 9),2)
+    p = [0.273, 0.037, 0.195, 0.009, 0.124, 0.058, 0.062, 0.151, 0.047, 0.044]
+    for i in range(10):
+        x = 0
+        for j in range(len(muestra)):
+            if muestra[j]==i+1:
+                x += 1
+        observado.append(x)
+        esperado.append(1000 * p[i]) 
+    x2 = 0
+    for i in range(len(observado)):
+        x1 = (((observado[i]-esperado[i])**2)/esperado[i])
+        x2 += x1
+
+    if (x2 < chiquadesperado):
+        print("Test aprobado. muestra de Empírica")
+        return True
+    else:
+        print("No paso el test")

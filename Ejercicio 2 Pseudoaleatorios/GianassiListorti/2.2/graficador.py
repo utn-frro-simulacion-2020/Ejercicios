@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class Graficadores:
@@ -10,12 +11,6 @@ class Graficadores:
     def graficarGamma(self, g):
         plt.title("gamma")
         plt.hist(g, 25, histtype="stepfilled",
-                 alpha=.7, linewidth=5, color='r')
-        plt.show()
-
-    def graficarPascal(self, p):
-        plt.title("pascal")
-        plt.hist(p, 25, histtype="stepfilled",
                  alpha=.7, linewidth=5, color='r')
         plt.show()
 
@@ -31,26 +26,27 @@ class Graficadores:
                  alpha=.7, linewidth=5, color='y')
         plt.show()
 
+    def graficarPascal(self, p):
+        plt.title("pascal")
+        plt.bar(p,np.max(p),width=0.1, color='r')
+        plt.show()
+
     def graficarBinomial(self, b):
         plt.title("binomial")
-        plt.hist(b, 25, histtype="stepfilled",
-                 alpha=.7, linewidth=5, color='r')
+        plt.bar(b,np.max(b),width=0.1, color='r')
         plt.show()
 
     def graficarPoisson(self, po):
         plt.title("poisson")
-        plt.hist(po, 25, histtype="stepfilled",
-                 alpha=.7, linewidth=5, color='r')
+        plt.bar(po,np.max(po),width=0.1, color='r')
         plt.show()
 
     def graficarEmpirica(self, em):
         plt.title("empírica discreta")
-        plt.hist(em, 25, histtype="stepfilled",
-                 alpha=.7, linewidth=5, color='r')
+        plt.bar(em,np.max(em),width=0.1, color='r')
         plt.show()
     
     def graficarHipergeo(self, hip):
         plt.title("hipergeométrica")
-        plt.hist(hip, 25, histtype="stepfilled",
-                 alpha=.7, linewidth=5, color='r')
+        plt.bar(hip,np.max(hip),width=0.1, color='r')
         plt.show()

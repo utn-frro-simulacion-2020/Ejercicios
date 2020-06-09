@@ -2,7 +2,7 @@ from os import system, name
 from generadores import *
 from graficador import Graficadores
 
-# from tests import *
+from tests import *
 
 def clearScreen():
     if name == 'nt':
@@ -23,9 +23,12 @@ if __name__ == "__main__":
     muestraEmpirica = GeneradorEmpirica().muestra(1000)
     muestraHipergeo = GeneradorHipergeo().muestra(5000000,500,0.4, 1000)
     # tests
-    # squareChiUniform(muestraUniforme)
-    # squareChiExponential(muestraExponencial)
-    # squareChiNormal(muestraNormal)
+    squareChiUniform(muestraUniforme)
+    squareChiExponential(muestraExponencial)
+    squareChiNormal(muestraNormal)
+    squareChiBinomial(muestraBinomial)
+    squareChiPoisson(muestraPoisson)
+    squeareChiEmpirica(muestraEmpirica)
     # graficos
     gfx = Graficadores()
     gfx.graficarUniforme(muestraUniforme)
